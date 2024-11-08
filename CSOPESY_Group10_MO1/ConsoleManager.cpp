@@ -23,15 +23,29 @@ const uint64_t MAX_VALUE = 4294967296;
 
 bool scheduler_test_run = false;
 
+// Set Values
+int max_overall_mem = 16384;
+int mem_per_frame = 16;
+int mem_per_proc = 4096;
+
+ConsoleManager::ConsoleManager() : memoryManager(max_overall_mem, mem_per_frame, mem_per_proc) {
+    coreCount = 0;
+    availableCores = 0;
+}
+
 void ConsoleManager::initialize() {
 
-	readConfig("config.txt");
+    readConfig("config.txt");
+
+    memoryManager = MemoryManager(max_overall_mem, mem_per_frame, mem_per_proc);
 
     coreCount = num_cpu;
     availableCores = num_cpu;
 
     cpuCores = vector<bool>(num_cpu, false);
     startScheduler();
+
+    testConfig();
 }
 
 /*
@@ -120,6 +134,9 @@ void ConsoleManager::testConfig() {
     cout << "min-ins: " << min_ins << endl;
     cout << "max-ins: " << max_ins << endl;
     cout << "delays-per-exec: " << delays_per_exec << endl;
+	cout << "max-overall-mem: " << max_overall_mem << endl;
+	cout << "mem-per-frame: " << mem_per_frame << endl;
+	cout << "mem-per-proc: " << mem_per_proc << endl;
 }
 
 /*

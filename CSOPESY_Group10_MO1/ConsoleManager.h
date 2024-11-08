@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "AConsole.h"
+#include "MemoryManager.h"
 
 using namespace std;
 
@@ -19,10 +20,12 @@ private:
     int availableCores;
     vector<bool> cpuCores;
     queue<AConsole*> waitingQueue;
+    MemoryManager memoryManager;
     map<string, thread> runningProcesses;
     mutex processMutex;
 
 public:
+    ConsoleManager();
     void initialize();
     void addConsole(const string& name, bool fromScreenCommand);
     void readConfig(const string& filename);
