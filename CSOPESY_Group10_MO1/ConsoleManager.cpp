@@ -177,6 +177,9 @@ void ConsoleManager::addConsole(const string& name, bool fromScreenCommand = fal
     waitingQueue.push(newConsole);
     consoles[name] = newConsole;
 
+    // add console to memory manager's list of consoles
+    memoryManager.addConsoletoMemory(newConsole);
+
     // Check if the console was created using the screen -s command
     if (fromScreenCommand) {
         // Call displayConsole to show the relevant details

@@ -13,12 +13,18 @@ using namespace std;
 class MemoryManager {
 private:
     int overallMemory;
+    int availableMemory;
     int perFrame;
     int perProcess;
+    int frameCount;
+
+    map<string, AConsole*> memoryConsoles;
 
 public:
     MemoryManager(int overallMemory, int perFrame, int perProcess);
-    void addConsoletoMemory(string name, int instructionTotal, AConsole newConsole);
+
+    void displayMemoryDetails() const;
+    void addConsoletoMemory(AConsole* newConsole);
 
     int getOverallMemory() const;
     void setOverallMemory(int overallMemory);

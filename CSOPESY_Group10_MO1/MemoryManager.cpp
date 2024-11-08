@@ -14,10 +14,23 @@ MemoryManager::MemoryManager(int overallMemory, int perFrame, int perProcess) {
     this->overallMemory = overallMemory;
     this->perFrame = perFrame;
     this->perProcess = perProcess;
+
+    availableMemory = overallMemory;
+
+    // setup memory frame
+    this->frameCount = overallMemory / perFrame;
 }
 
-void MemoryManager::addConsoletoMemory(string name, int instructionTotal, AConsole newConsole) {
+void MemoryManager::displayMemoryDetails() const {
+    cout << "Timestamp: " << getCurrentTime() << endl;
+	cout << "Numbe of processes in memory: " << memoryConsoles.size() << endl;
+	cout << "Total external fragmentation in KB: " << "TODO" << endl;
 
+}
+
+void MemoryManager::addConsoletoMemory(AConsole* newConsole) {
+    memoryConsoles[newConsole->getName()] = newConsole;
+    availableMemory -= perProcess;
 }
 
 int MemoryManager::getOverallMemory() const {
